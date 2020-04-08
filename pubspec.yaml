@@ -37,6 +37,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   open_file: ^2.0.3
   dio: ^3.0.1
+  path_provider: ^1.6.5
 
 dev_dependencies:
   flutter_test:

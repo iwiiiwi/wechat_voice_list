@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
 import 'package:wechat_voice_list/generated/l10n.dart';
-import 'package:wechat_voice_list/view_mode/theme_model.dart';
 
-class SettingPage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var iconColor = Theme.of(context).accentColor;
