@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:localstorage/localstorage.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -10,6 +11,8 @@ class StorageManager {
 
   /// 临时目录 eg: cookie
   static Directory temporaryDirectory;
+
+  static Directory externalDirectory;
 
 
   /// 初始化必备操作 eg:user数据
@@ -24,6 +27,15 @@ class StorageManager {
     temporaryDirectory = await getTemporaryDirectory();
     sharedPreferences = await SharedPreferences.getInstance();
     localStorage = LocalStorage('LocalStorage');
+    if (Platform.isAndroid) {
+      PermissionStatus permission = await PermissionHandler().checkPermissionStatus(PermissionGroup.storage);
+      if (permission != PermissionStatus.granted) {
+        await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+      }
+      externalDirectory = await getExternalStorageDirectory();
+    } else if (Platform.isIOS) {
+      externalDirectory = await getExternalStorageDirectory();
+    }
     await localStorage.ready;
   }
 }
