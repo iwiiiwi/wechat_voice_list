@@ -35,6 +35,51 @@ class S {
       args: [],
     );
   }
+
+  String get splashSkip {
+    return Intl.message(
+      'Skip',
+      name: 'splashSkip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get tabHome {
+    return Intl.message(
+      'Home',
+      name: 'tabHome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get tabProject {
+    return Intl.message(
+      'Project',
+      name: 'tabProject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get tabStructure {
+    return Intl.message(
+      'Structure',
+      name: 'tabStructure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get tabUser {
+    return Intl.message(
+      'Me',
+      name: 'tabUser',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

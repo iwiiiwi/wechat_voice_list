@@ -1,3 +1,8 @@
 {
-  "autoBySystem": "跟随系统"
+  "autoBySystem": "跟随系统",
+  "splashSkip": "跳过",
+  "tabHome": "首页",
+  "tabProject": "项目",
+  "tabStructure": "体系",
+  "tabUser": "我的"
 }

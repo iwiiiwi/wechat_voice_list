@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:wechat_voice_list/config/resource_mananger.dart';
 import 'package:wechat_voice_list/config/router_manger.dart';
 import 'package:wechat_voice_list/generated/l10n.dart';
 
@@ -175,7 +177,7 @@ class AnimatedAndroidLogo extends AnimatedWidget {
 }
 
 void nextPage(context) {
-  Navigator.of(context).pushReplacementNamed(RouteName.tab);
+  Navigator.of(context).pushReplacementNamed(RouteName.setting);
 }
 
 class GuidePage extends StatefulWidget {

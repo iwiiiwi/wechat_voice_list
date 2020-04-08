@@ -1,3 +1,8 @@
 {
-  "autoBySystem": "Auto"
+  "autoBySystem": "Auto",
+  "splashSkip": "Skip",
+  "tabHome": "Home",
+  "tabProject": "Project",
+  "tabStructure": "Structure",
+  "tabUser": "Me"
 }

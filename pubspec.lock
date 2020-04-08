@@ -65,22 +65,43 @@ packages:
     source: hosted
     version: "0.1.3"
   device_info:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: device_info
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.2+1"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.9"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
   flutter_localizations:
-    dependency: "direct dev"
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_page_indicator:
+    dependency: transitive
+    description:
+      name: flutter_page_indicator
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.3"
+  flutter_swiper:
+    dependency: "direct main"
+    description:
+      name: flutter_swiper
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -91,6 +112,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.4"
   image:
     dependency: transitive
     description:
@@ -106,7 +134,7 @@ packages:
     source: hosted
     version: "0.16.0"
   localstorage:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: localstorage
       url: "https://pub.flutter-io.cn"
@@ -134,14 +162,21 @@ packages:
     source: hosted
     version: "0.0.4"
   oktoast:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: oktoast
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.1+1"
+  open_file:
+    dependency: "direct main"
+    description:
+      name: open_file
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.1"
   package_info:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: package_info
       url: "https://pub.flutter-io.cn"
@@ -204,14 +239,14 @@ packages:
     source: hosted
     version: "1.0.2"
   provider:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: provider
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.3"
   pull_to_refresh:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: pull_to_refresh
       url: "https://pub.flutter-io.cn"
@@ -225,7 +260,7 @@ packages:
     source: hosted
     version: "2.0.5"
   shared_preferences:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
@@ -299,6 +334,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.11"
+  transformer_page_view:
+    dependency: transitive
+    description:
+      name: transformer_page_view
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.6"
   typed_data:
     dependency: transitive
     description:
@@ -321,5 +363,5 @@ packages:
     source: hosted
     version: "3.5.0"
 sdks:
-  dart: ">=2.4.0 <3.0.0"
+  dart: ">2.4.0 <3.0.0"
   flutter: ">=1.12.13+hotfix.5 <2.0.0"

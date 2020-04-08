@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 List<SingleChildWidget> providers = [
   ...independentServices,
-  ...dependentServices,
-  ...uiConsumableProviders
+//  ...dependentServices,
+//  ...uiConsumableProviders
 ];
 
 /// 独立的model
