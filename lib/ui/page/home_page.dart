@@ -208,21 +208,37 @@ class _HomePage extends State<HomePage> {
   }
 
   String getVoiceListPath(String path) {
+    if(path.startsWith('/')){
+      path=path.substring(1);
+    }
     List<String> paths = path.split("/");
     String rootPath = getRootPath('', paths);
     String voiceParenPath="$rootPath/MicroMsg/";
     return voiceParenPath;
   }
 
+  List<String> getVoicePath(String parentPath){
+    List<String> voilcePaths=[];
+    List<FileSystemEntity> listSync= Directory(parentPath).listSync();
+    for (FileSystemEntity f in listSync) {
+
+    }
+  }
+
+
   String getRootPath(String temp, List<String> paths) {
     if (paths.length > 0) {
-      String newPath = temp ?? '' + '/' + paths[0];
+      String newPath = (temp??'') + '/' + paths[0];
       paths?.removeAt(0);
-      List<FileSystemEntity> listSync = Directory(newPath).listSync();
-      for (FileSystemEntity f in listSync) {
-        if (f.path=='tencent') {
-          return f.path;
+      List<FileSystemEntity> listSync;
+      try {
+        listSync = Directory(newPath).listSync();
+        for (FileSystemEntity f in listSync) {
+          if (f.path=='$newPath/tencent') {
+            return f.path;
+          }
         }
+      } catch (e) {
       }
       return getRootPath(newPath, paths);
     } else {
