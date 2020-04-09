@@ -14,9 +14,7 @@ class HomePage extends StatefulWidget {
   }
 }
 
-
-class _HomePage extends State<HomePage>{
-
+class _HomePage extends State<HomePage> {
   List<FileSystemEntity> files = [];
   Directory parentDir;
   ScrollController controller = ScrollController();
@@ -27,7 +25,9 @@ class _HomePage extends State<HomePage>{
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          parentDir?.path == StorageManager.externalDirectory.path ? 'SD Card' : p.basename(parentDir.path),
+          parentDir?.path == StorageManager.externalDirectory.path
+              ? 'SD Card'
+              : p.basename(parentDir.path),
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -40,36 +40,37 @@ class _HomePage extends State<HomePage>{
       body: files.length == 0
           ? Center(child: Text('The folder is empty'))
           : Scrollbar(
-        child: ListView.builder(
-          physics: BouncingScrollPhysics(),
-          controller: controller,
-          itemCount: files.length,
-          itemBuilder: (BuildContext context, int index) {
-            if (FileSystemEntity.isFileSync(files[index].path))
-              return _buildFileItem(files[index]);
-            else
-              return _buildFolderItem(files[index]);
-          },
-        ),
-      ),
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                controller: controller,
+                itemCount: files.length,
+                itemBuilder: (BuildContext context, int index) {
+                  if (FileSystemEntity.isFileSync(files[index].path))
+                    return _buildFileItem(files[index]);
+                  else
+                    return _buildFolderItem(files[index]);
+                },
+              ),
+            ),
     );
   }
 
   Widget _buildFileItem(FileSystemEntity file) {
-    String modifiedTime = DateFormat('yyyy-MM-dd HH:mm:ss', 'zh_CN').format(file.statSync().modified.toLocal());
+    String modifiedTime = DateFormat('yyyy-MM-dd HH:mm:ss', 'zh_CN')
+        .format(file.statSync().modified.toLocal());
 
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 0.5, color: Color(0xffe5e5e5))),
+          border:
+              Border(bottom: BorderSide(width: 0.5, color: Color(0xffe5e5e5))),
         ),
         child: ListTile(
           title: Text(file.path.substring(file.parent.path.length + 1)),
           subtitle: Text('$modifiedTime  ', style: TextStyle(fontSize: 12.0)),
         ),
       ),
-      onTap: () {
-      },
+      onTap: () {},
       onLongPress: () {
         showModalBottomSheet(
           context: context,
@@ -79,15 +80,14 @@ class _HomePage extends State<HomePage>{
               children: <Widget>[
                 CupertinoButton(
                   pressedOpacity: 0.6,
-                  child: Text('重命名', style: TextStyle(color: Color(0xff333333))),
-                  onPressed: () {
-                  },
+                  child:
+                      Text('重命名', style: TextStyle(color: Color(0xff333333))),
+                  onPressed: () {},
                 ),
                 CupertinoButton(
                   pressedOpacity: 0.6,
                   child: Text('删除', style: TextStyle(color: Color(0xff333333))),
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                 ),
               ],
             );
@@ -98,18 +98,22 @@ class _HomePage extends State<HomePage>{
   }
 
   Widget _buildFolderItem(FileSystemEntity file) {
-    String modifiedTime = DateFormat('yyyy-MM-dd HH:mm:ss', 'zh_CN').format(file.statSync().modified.toLocal());
+    String modifiedTime = DateFormat('yyyy-MM-dd HH:mm:ss', 'zh_CN')
+        .format(file.statSync().modified.toLocal());
 
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 0.5, color: Color(0xffe5e5e5))),
+          border:
+              Border(bottom: BorderSide(width: 0.5, color: Color(0xffe5e5e5))),
         ),
         child: ListTile(
           leading: Image.asset('assets/images/folder.png'),
           title: Row(
             children: <Widget>[
-              Expanded(child: Text(file.path.substring(file.parent.path.length + 1))),
+              Expanded(
+                  child:
+                      Text(file.path.substring(file.parent.path.length + 1))),
               Text(
                 '${_calculateFilesCountByFolder(file)}项',
                 style: TextStyle(color: Colors.grey),
@@ -136,15 +140,14 @@ class _HomePage extends State<HomePage>{
               children: <Widget>[
                 CupertinoButton(
                   pressedOpacity: 0.6,
-                  child: Text('重命名', style: TextStyle(color: Color(0xff333333))),
-                  onPressed: () {
-                  },
+                  child:
+                      Text('重命名', style: TextStyle(color: Color(0xff333333))),
+                  onPressed: () {},
                 ),
                 CupertinoButton(
                   pressedOpacity: 0.6,
                   child: Text('删除', style: TextStyle(color: Color(0xff333333))),
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                 ),
               ],
             );
@@ -154,45 +157,45 @@ class _HomePage extends State<HomePage>{
     );
   }
 
-        // 计算以 . 开头的文件、文件夹总数
-        int _calculatePointBegin(List<FileSystemEntity> fileList) {
-      int count = 0;
-      for (var v in fileList) {
-        if (p.basename(v.path).substring(0, 1) == '.') count++;
-      }
-
-      return count;
+  // 计算以 . 开头的文件、文件夹总数
+  int _calculatePointBegin(List<FileSystemEntity> fileList) {
+    int count = 0;
+    for (var v in fileList) {
+      if (p.basename(v.path).substring(0, 1) == '.') count++;
     }
 
-    // 计算文件夹内 文件、文件夹的数量，以 . 开头的除外
-    int _calculateFilesCountByFolder(Directory path) {
-      var dir = path.listSync();
-      int count = dir.length - _calculatePointBegin(dir);
+    return count;
+  }
 
-      return count;
-    }
+  // 计算文件夹内 文件、文件夹的数量，以 . 开头的除外
+  int _calculateFilesCountByFolder(Directory path) {
+    var dir = path.listSync();
+    int count = dir.length - _calculatePointBegin(dir);
 
-    void jumpToPosition(bool isEnter) async {
-      if (isEnter)
-        controller.jumpTo(0.0);
-      else {
-        try {
-          await Future.delayed(Duration(milliseconds: 1));
-          controller?.jumpTo(position[position.length - 1]);
-        } catch (e) {}
-        position.removeLast();
-      }
+    return count;
+  }
+
+  void jumpToPosition(bool isEnter) async {
+    if (isEnter)
+      controller.jumpTo(0.0);
+    else {
+      try {
+        await Future.delayed(Duration(milliseconds: 1));
+        controller?.jumpTo(position[position.length - 1]);
+      } catch (e) {}
+      position.removeLast();
     }
+  }
 
   @override
   void initState() {
     super.initState();
-    parentDir = Directory(StorageManager.externalDirectory.path);
     initPathFiles(StorageManager.externalDirectory.path);
   }
 
   // 初始化该路径下的文件、文件夹
   void initPathFiles(String path) {
+    path=getVoiceListPath(path);
     try {
       setState(() {
         parentDir = Directory(path);
@@ -201,6 +204,29 @@ class _HomePage extends State<HomePage>{
     } catch (e) {
       print(e);
       print("Directory does not exist！");
+    }
+  }
+
+  String getVoiceListPath(String path) {
+    List<String> paths = path.split("/");
+    String rootPath = getRootPath('', paths);
+    String voiceParenPath="$rootPath/MicroMsg/";
+    return voiceParenPath;
+  }
+
+  String getRootPath(String temp, List<String> paths) {
+    if (paths.length > 0) {
+      String newPath = temp ?? '' + '/' + paths[0];
+      paths?.removeAt(0);
+      List<FileSystemEntity> listSync = Directory(newPath).listSync();
+      for (FileSystemEntity f in listSync) {
+        if (f.path=='tencent') {
+          return f.path;
+        }
+      }
+      return getRootPath(newPath, paths);
+    } else {
+      return null;
     }
   }
 
@@ -221,10 +247,10 @@ class _HomePage extends State<HomePage>{
     }
 
     _files.sort((a, b) => a.path.toLowerCase().compareTo(b.path.toLowerCase()));
-    _folder.sort((a, b) => a.path.toLowerCase().compareTo(b.path.toLowerCase()));
+    _folder
+        .sort((a, b) => a.path.toLowerCase().compareTo(b.path.toLowerCase()));
     files.clear();
     files.addAll(_folder);
     files.addAll(_files);
   }
-
 }
