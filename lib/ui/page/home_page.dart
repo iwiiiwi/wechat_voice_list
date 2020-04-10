@@ -221,9 +221,12 @@ class _HomePage extends State<HomePage> {
     List<String> voilcePaths=[];
     List<FileSystemEntity> listSync= Directory(parentPath).listSync();
     for (FileSystemEntity f in listSync) {
-
+      FileStat stat=f.statSync();
+      String path=f.path;
     }
   }
+
+
 
 
   String getRootPath(String temp, List<String> paths) {
