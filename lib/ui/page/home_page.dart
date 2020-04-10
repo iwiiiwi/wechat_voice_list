@@ -226,13 +226,13 @@ class _HomePage extends State<HomePage> {
             (a, b) {
             FileStat stata= a.statSync();
             FileStat statb = b.statSync();
-            return stata.modified.compareTo(statb.modified);
+            return statb.modified.compareTo(stata.modified);
             }
     );
     for(FileSystemEntity f in listSync){
       String name=f.path.split('/').last;
       if(isVoiceFolder(name)){
-        return f.path;
+        return "${f.path}/voice2";
       }
     }
     throw new Exception('no target path exist');
