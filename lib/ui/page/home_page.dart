@@ -213,20 +213,37 @@ class _HomePage extends State<HomePage> {
     }
     List<String> paths = path.split("/");
     String rootPath = getRootPath('', paths);
-    String voiceParenPath="$rootPath/MicroMsg/";
-    return voiceParenPath;
-  }
-
-  List<String> getVoicePath(String parentPath){
-    List<String> voilcePaths=[];
-    List<FileSystemEntity> listSync= Directory(parentPath).listSync();
-    for (FileSystemEntity f in listSync) {
-      FileStat stat=f.statSync();
-      String path=f.path;
+    if(rootPath!=null){
+      return getVoice2Path("$rootPath/MicroMsg/");
     }
+
+    throw Exception('no target path exitst');
   }
 
+  String getVoice2Path(String parentPath){
+    List<FileSystemEntity> listSync= Directory(parentPath).listSync();
+    listSync.sort(
+            (a, b) {
+            FileStat stata= a.statSync();
+            FileStat statb = b.statSync();
+            return stata.modified.compareTo(statb.modified);
+            }
+    );
+    for(FileSystemEntity f in listSync){
+      String name=f.path.split('/').last;
+      if(isVoiceFolder(name)){
+        return f.path;
+      }
+    }
+    throw new Exception('no target path exist');
+  }
 
+bool isVoiceFolder(String name){
+    if(name.length>25){
+      return new RegExp(r'^[\da-f]+$').hasMatch(name);
+    }
+    return false;
+}
 
 
   String getRootPath(String temp, List<String> paths) {
