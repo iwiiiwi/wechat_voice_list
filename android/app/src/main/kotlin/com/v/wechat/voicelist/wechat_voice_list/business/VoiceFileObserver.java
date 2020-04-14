@@ -1,11 +1,25 @@
 package com.v.wechat.voicelist.wechat_voice_list.business;
 
+import android.annotation.TargetApi;
 import android.os.FileObserver;
 import android.util.Log;
+
+import java.io.File;
+import java.util.List;
 
 public class VoiceFileObserver extends FileObserver {
 
     private static final String TAG = "VoiceFileObserver";
+
+    @TargetApi(29)
+    public VoiceFileObserver(File file) {
+        super(file);
+    }
+
+    @TargetApi(29)
+    public VoiceFileObserver(List<File> files) {
+        super(files);
+    }
 
     public VoiceFileObserver(String path) {
         super(path);
