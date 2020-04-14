@@ -13,16 +13,16 @@ public class VoiceFileObserver extends FileObserver {
 
     @TargetApi(29)
     public VoiceFileObserver(File file) {
-        super(file);
+        super(file, FileObserver.CREATE | FileObserver.DELETE);
     }
 
     @TargetApi(29)
     public VoiceFileObserver(List<File> files) {
-        super(files);
+        super(files,  FileObserver.CREATE | FileObserver.DELETE);
     }
 
     public VoiceFileObserver(String path) {
-        super(path);
+        super(path, FileObserver.CREATE | FileObserver.DELETE);
     }
 
     @Override
