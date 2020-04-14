@@ -13,7 +13,6 @@ import java.io.FileFilter;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class VoiceFileMonitorService extends Service {
@@ -82,9 +81,7 @@ public class VoiceFileMonitorService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(voiceFileObserver==null){
-            File voiceParent=new File(path);
-            List<File> voices = Arrays.asList(voiceParent.listFiles());
-            voiceFileObserver=new VoiceFileObserver(voices);
+            voiceFileObserver=new VoiceFileObserver(path);
             voiceFileObserver.startWatching();
         }
         Log.d(TAG, "onStartCommand() called");
