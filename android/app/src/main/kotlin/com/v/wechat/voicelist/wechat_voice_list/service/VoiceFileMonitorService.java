@@ -6,18 +6,17 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.v.wechat.voicelist.wechat_voice_list.business.VoiceFileObserver;
+import com.v.wechat.voicelist.wechat_voice_list.business.RecursiveFileObserver;
+import com.v.wechat.voicelist.wechat_voice_list.business.VoiceFileEventListener;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.regex.Pattern;
 
 public class VoiceFileMonitorService extends Service {
 
-    private VoiceFileObserver voiceFileObserver;
+    private RecursiveFileObserver voiceFileObserver;
 
     private String path;
 
@@ -81,7 +80,7 @@ public class VoiceFileMonitorService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(voiceFileObserver==null){
-            voiceFileObserver=new VoiceFileObserver(path);
+            voiceFileObserver=new RecursiveFileObserver(path,new VoiceFileEventListener());
             voiceFileObserver.startWatching();
         }
         Log.d(TAG, "onStartCommand() called");
