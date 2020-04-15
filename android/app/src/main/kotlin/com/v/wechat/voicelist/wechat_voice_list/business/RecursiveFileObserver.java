@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import android.os.FileObserver;
+import android.util.Log;
 
 /**
  * A FileObserver that observes all the files/folders within given directory
@@ -37,37 +38,38 @@ public class RecursiveFileObserver extends FileObserver {
         mListener = listener;
     }
 
-    private void startWatching(String path) {
-        synchronized (mObservers) {
-            FileObserver observer = mObservers.remove(path);
-            if (observer != null) {
-                observer.stopWatching();
-            }
-            observer = new SingleFileObserver(path, mMask);
-            observer.startWatching();
-            mObservers.put(path, observer);
-        }
-    }
-
     @Override
     public void startWatching() {
         Stack<String> stack = new Stack<>();
         stack.push(mPath);
-
         // Recursively watch all child directories
         while (!stack.empty()) {
             String parent = stack.pop();
             startWatching(parent);
-
             File path = new File(parent);
             File[] files = path.listFiles();
             if (files != null) {
+                if(files[0].isFile()){
+//                    startWatching(parent);
+                }
                 for (File file : files) {
-                    if (watch(file)) {
-                        stack.push(file.getAbsolutePath());
+                    if(watch(file)){
+                       stack.push(file.getAbsolutePath());
                     }
                 }
             }
+        }
+        Log.d("SDFASDF","总监控器是:"+mObservers.size());
+    }
+
+    private void startWatching(String path) {
+        synchronized (mObservers) {
+            if(!mObservers.containsKey(path)){
+               SingleFileObserver observer = new SingleFileObserver(path, mMask);
+                observer.startWatching();
+                mObservers.put(path, observer);
+            }
+
         }
     }
 

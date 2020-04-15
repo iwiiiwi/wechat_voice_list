@@ -108,7 +108,7 @@ class _HomePage extends State<HomePage> {
               Border(bottom: BorderSide(width: 0.5, color: Color(0xffe5e5e5))),
         ),
         child: ListTile(
-          leading: Image.asset('assets/images/folder.png'),
+//          leading: Image.asset('assets/images/folder.png'),
           title: Row(
             children: <Widget>[
               Expanded(
@@ -195,7 +195,6 @@ class _HomePage extends State<HomePage> {
 
   // 初始化该路径下的文件、文件夹
   void initPathFiles(String path) {
-    path=getVoiceListPath(path);
     try {
       setState(() {
         parentDir = Directory(path);
