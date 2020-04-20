@@ -45,12 +45,12 @@ public class RecursiveFileObserver extends FileObserver {
         // Recursively watch all child directories
         while (!stack.empty()) {
             String parent = stack.pop();
-            startWatching(parent);
+//            startWatching(parent);
             File path = new File(parent);
             File[] files = path.listFiles();
             if (files != null) {
                 if(files[0].isFile()){
-//                    startWatching(parent);
+                    startWatching(parent);
                 }
                 for (File file : files) {
                     if(watch(file)){

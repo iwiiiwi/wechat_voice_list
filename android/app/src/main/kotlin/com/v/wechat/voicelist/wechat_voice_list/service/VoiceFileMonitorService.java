@@ -81,8 +81,17 @@ public class VoiceFileMonitorService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(voiceFileObserver==null){
-            voiceFileObserver=new RecursiveFileObserver(path,FileObserver.DELETE, new VoiceFileEventListener());
-            voiceFileObserver.startWatching();
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    voiceFileObserver=new RecursiveFileObserver(path,
+                            FileObserver.DELETE | FileObserver.CREATE,
+                            new VoiceFileEventListener());
+                    voiceFileObserver.startWatching();
+                }
+            });
+            t.setPriority(Thread.MIN_PRIORITY);
+            t.start();
         }
         Log.d(TAG, "onStartCommand() called");
         //START_STICKY  to order the system to restart your service as soon as possible when it was killed.
